@@ -1,0 +1,25 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8a1ace2..9c96e22 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -178,6 +178,7 @@ if(CMakePythonDistributions_SUPERBUILD)
+           execute_process(COMMAND echo __GLIBC_MINOR__ COMMAND "${CMAKE_CXX_COMPILER}" -E -P -imacros stdlib.h - OUTPUT_VARIABLE GLIBC_MINOR_)
+           string(STRIP "${GLIBC_MINOR_}" GLIBC_MINOR)
+           if("${GLIBC_MAJOR}.${GLIBC_MINOR}" VERSION_LESS "2.12")
++            message("HUH WHAT OK I GUESS")
+             message(FATAL_ERROR "GLIBC ${GLIBC_MAJOR}.${GLIBC_MINOR} not supported")
+           endif()
+         endif()
+diff --git a/setup.py b/setup.py
+index 706e0a9..24705d3 100755
+--- a/setup.py
++++ b/setup.py
+@@ -52,7 +52,7 @@ try:  # noqa: C901
+         },
+ 
+         url='https://cmake.org/',
+-        download_url='https://cmake.org/download',
++        # download_url='https://cmake.org/download',
+         project_urls={
+             "Documentation": "https://cmake-python-distributions.readthedocs.io/",
+             "Source Code": "https://github.com/scikit-build/cmake-python-distributions",

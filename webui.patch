@@ -1,32 +1,32 @@
 diff --git a/launch.py b/launch.py
-index d2f1055..633210c 100644
+index af0d418..7a694a1 100644
 --- a/launch.py
 +++ b/launch.py
-@@ -196,16 +196,16 @@ def prepare_enviroment():
+@@ -234,16 +234,16 @@ def prepare_environment():
  
      os.makedirs(dir_repos, exist_ok=True)
  
--    git_clone(stable_diffusion_repo, repo_dir('stable-diffusion'), "Stable Diffusion", stable_diffusion_commit_hash)
+-    git_clone(stable_diffusion_repo, repo_dir('stable-diffusion-stability-ai'), "Stable Diffusion", stable_diffusion_commit_hash)
 -    git_clone(taming_transformers_repo, repo_dir('taming-transformers'), "Taming Transformers", taming_transformers_commit_hash)
 -    git_clone(k_diffusion_repo, repo_dir('k-diffusion'), "K-diffusion", k_diffusion_commit_hash)
 -    git_clone(codeformer_repo, repo_dir('CodeFormer'), "CodeFormer", codeformer_commit_hash)
 -    git_clone(blip_repo, repo_dir('BLIP'), "BLIP", blip_commit_hash)
-+    #git_clone(stable_diffusion_repo, repo_dir('stable-diffusion'), "Stable Diffusion", stable_diffusion_commit_hash)
-+    #git_clone(taming_transformers_repo, repo_dir('taming-transformers'), "Taming Transformers", taming_transformers_commit_hash)
-+    #git_clone(k_diffusion_repo, repo_dir('k-diffusion'), "K-diffusion", k_diffusion_commit_hash)
-+    #git_clone(codeformer_repo, repo_dir('CodeFormer'), "CodeFormer", codeformer_commit_hash)
-+    #git_clone(blip_repo, repo_dir('BLIP'), "BLIP", blip_commit_hash)
++    # git_clone(stable_diffusion_repo, repo_dir('stable-diffusion-stability-ai'), "Stable Diffusion", stable_diffusion_commit_hash)
++    # git_clone(taming_transformers_repo, repo_dir('taming-transformers'), "Taming Transformers", taming_transformers_commit_hash)
++    # git_clone(k_diffusion_repo, repo_dir('k-diffusion'), "K-diffusion", k_diffusion_commit_hash)
++    # git_clone(codeformer_repo, repo_dir('CodeFormer'), "CodeFormer", codeformer_commit_hash)
++    # git_clone(blip_repo, repo_dir('BLIP'), "BLIP", blip_commit_hash)
  
      if not is_installed("lpips"):
          run_pip(f"install -r {os.path.join(repo_dir('CodeFormer'), 'requirements.txt')}", "requirements for CodeFormer")
  
 -    run_pip(f"install -r {requirements_file}", "requirements for Web UI")
-+    #run_pip(f"install -r {requirements_file}", "requirements for Web UI")
++    # run_pip(f"install -r {requirements_file}", "requirements for Web UI")
  
-     run_extensions_installers()
+     run_extensions_installers(settings_file=args.ui_settings_file)
  
 diff --git a/modules/paths.py b/modules/paths.py
-index 1e7a2fb..1298c58 100644
+index 4dd03a3..81f12bf 100644
 --- a/modules/paths.py
 +++ b/modules/paths.py
 @@ -19,10 +19,10 @@ assert sd_path is not None, "Couldn't find Stable Diffusion in any of: " + str(p
@@ -37,10 +37,10 @@ index 1e7a2fb..1298c58 100644
 -    (os.path.join(sd_path, '../CodeFormer'), 'inference_codeformer.py', 'CodeFormer', []),
 -    (os.path.join(sd_path, '../BLIP'), 'models/blip.py', 'BLIP', []),
 -    (os.path.join(sd_path, '../k-diffusion'), 'k_diffusion/sampling.py', 'k_diffusion', ["atstart"]),
-+    ('@taming_transformers@', 'taming', 'Taming Transformers', []),            
-+    ('@codeformer@', 'inference_codeformer.py', 'CodeFormer', []),             
-+    ('@blip@', 'models/blip.py', 'BLIP', []),                                  
-+    ('@k_diffusion@', 'k_diffusion/sampling.py', 'k_diffusion', ["atstart"]),  
++    ('/nix/store/191zp0547w7cld6g48b78cqv94nc5rdk-python3.10-taming-transformers-rom1504-0.0.6/lib/python3.10/site-packages', 'taming', 'Taming Transformers', []),            
++    ('/nix/store/fbcccx13xd5bgv6s15d5yx1sd6xf8bfm-codeformer-0.1.2/lib/python3.10/site-packages/codeformer', 'inference_codeformer.py', 'CodeFormer', []),             
++    ('/nix/store/mn6lb7nz3f0c029jf30l6142dildkm4j-blip-0.1.0/lib/python3.10/site-packages/blip', 'models/blip.py', 'BLIP', []),                                  
++    ('/nix/store/4hfxynl0p8aqxrw4qngbh56wxqcsg33x-python3.10-k-diffusion-0.0.12/lib/python3.10/site-packages', 'k_diffusion/sampling.py', 'k_diffusion', ["atstart"]),  
  ]
  
  paths = {}

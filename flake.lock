@@ -35,7 +35,8 @@
       "inputs": {
         "nixlib": "nixlib",
         "nixpkgs": "nixpkgs",
-        "stable-diffusion-repo": "stable-diffusion-repo"
+        "stable-diffusion-repo": "stable-diffusion-repo",
+        "stable-diffusion-v2-repo": "stable-diffusion-v2-repo"
       }
     },
     "stable-diffusion-repo": {
@@ -52,6 +53,23 @@
         "owner": "CompVis",
         "repo": "stable-diffusion",
         "rev": "69ae4b35e0a0f6ee1af8bb9a5d0016ccb27e36dc",
+        "type": "github"
+      }
+    },
+    "stable-diffusion-v2-repo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1670422221,
+        "narHash": "sha256-xQ1tCNgwUAJNg2VIsWUKt2uJhlQ/9hjjdK1lcXPrd4Q=",
+        "owner": "Stability-AI",
+        "repo": "stablediffusion",
+        "rev": "c12d960d1ee4f9134c2516862ef991ec52d3f59e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Stability-AI",
+        "repo": "stablediffusion",
+        "rev": "c12d960d1ee4f9134c2516862ef991ec52d3f59e",
         "type": "github"
       }
     }

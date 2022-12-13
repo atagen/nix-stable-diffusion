@@ -1,0 +1,38 @@
+diff --git a/python/setup.py b/python/setup.py
+index e2fdbdcfb..bfad08e3c 100644
+--- a/python/setup.py
++++ b/python/setup.py
+@@ -50,14 +50,15 @@ def get_thirdparty_packages(triton_cache_path):
+     packages = [
+         Package("pybind11", "pybind11-2.10.0", "https://github.com/pybind/pybind11/archive/refs/tags/v2.10.0.tar.gz", "include/pybind11/pybind11.h", "PYBIND11_INCLUDE_DIR", "")
+     ]
+-    if not use_system_llvm():
+-        # download LLVM if no suitable system LLVM is installed
+-        packages.append(
+-            Package("llvm", "clang+llvm-11.0.1-x86_64-linux-gnu-ubuntu-16.04", "https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/clang+llvm-11.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz", "lib", "LLVM_INCLUDE_DIRS", "LLVM_LIBRARY_DIR")
+-        )
++    # if not use_system_llvm():
++    #     # download LLVM if no suitable system LLVM is installed
++    #     packages.append(
++    #         Package("llvm", "clang+llvm-11.0.1-x86_64-linux-gnu-ubuntu-16.04", "https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/clang+llvm-11.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz", "lib", "LLVM_INCLUDE_DIRS", "LLVM_LIBRARY_DIR")
++    #     )
+ 
+     thirdparty_cmake_args = []
+     for p in packages:
++        continue
+         package_root_dir = os.path.join(triton_cache_path, p.package)
+         package_dir = os.path.join(package_root_dir, p.name)
+         test_file_path = os.path.join(package_dir, p.test_file)
+@@ -113,10 +114,11 @@ class CMakeBuild(build_ext):
+             self.build_extension(ext)
+ 
+     def build_extension(self, ext):
+-        triton_cache_path = os.path.join(os.environ["HOME"], ".triton")
++        triton_cache_path = os.path.join(".triton")
+         thirdparty_cmake_args = get_thirdparty_packages(triton_cache_path)
+         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.path)))
+         # create build directories
++        print(f"our base dir is: {self.base_dir}.\nwe're trying to create this dir: {self.build_temp}", file=sys.stderr)
+         if not os.path.exists(self.build_temp):
+             os.makedirs(self.build_temp)
+         # python directories

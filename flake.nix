@@ -10,18 +10,47 @@
       url = "github:CompVis/stable-diffusion?rev=69ae4b35e0a0f6ee1af8bb9a5d0016ccb27e36dc";
       flake = false;
     };
+    stable-diffusion-v2-repo = {
+      url = "github:Stability-AI/stablediffusion?rev=c12d960d1ee4f9134c2516862ef991ec52d3f59e";
+      flake = false;
+    };
   };
-  outputs = { self, nixpkgs, nixlib, stable-diffusion-repo }@inputs:
+  outputs = { self, nixpkgs, nixlib, stable-diffusion-repo, stable-diffusion-v2-repo }@inputs:
     let
       nixlib = inputs.nixlib.outputs.lib;
       supportedSystems = [ "x86_64-linux" ];
       forAll = nixlib.genAttrs supportedSystems;
-      requirementsFor = { pkgs, webui ? false }: with pkgs; with pkgs.python3.pkgs; [
+      requirementsFor = { pkgs, webui ? false }: with pkgs; with pkgs.python3.pkgs; with pkgs.cudaPackages; [
         python3
+        
+        cmake
+        clang
+        llvm
+        ncurses
+        git
+        zlib
 
+        protobuf
+        open_clip
+
+        # xformers
+        # triton
+        # pybind11
+        # cmake-py
+        # scikit-build
+
+        which
+
+        cudatoolkit
         torch
         torchvision
         numpy
+
+        scipy
+        torchsde
+        pyre-extensions
+        flash-attention
+        cutlass
 
         albumentations
         opencv4
@@ -41,6 +70,7 @@
         kornia
         k-diffusion
 
+        trampoline
         # following packages not needed for vanilla SD but used by both UIs
         realesrgan
         pillow
@@ -147,6 +177,16 @@
           torch-fidelity = callPackage ./packages/torch-fidelity { };
           resize-right = callPackage ./packages/resize-right { };
           torchdiffeq = callPackage ./packages/torchdiffeq { };
+          torchsde = callPackage ./packages/torchsde { };
+          trampoline = callPackage ./packages/trampoline { };
+          diffusers = callPackage ./packages/diffusers { };
+          pyre-extensions = callPackage ./packages/pyre-extensions { };
+          flash-attention = callPackage ./packages/flash-attention { };
+          cutlass = callPackage ./packages/cutlass { };
+          triton = callPackage ./packages/triton { };
+          open_clip = callPackage ./packages/open_clip { };
+          cmake-py = callPackage ./packages/cmake { };
+          xformers = callPackage ./packages/xformers { };
           k-diffusion = callPackage ./packages/k-diffusion { clean-fid = self.clean-fid; };
           accelerate = callPackage ./packages/accelerate { };
           clip-anytorch = callPackage ./packages/clip-anytorch { };
@@ -250,7 +290,7 @@
                     git apply ${./webui.patch}
                     rm -rf repositories/
                     mkdir repositories
-                    ln -s ${inputs.stable-diffusion-repo}/ repositories/stable-diffusion
+                    ln -s ${inputs.stable-diffusion-v2-repo}/ repositories/stable-diffusion-stability-ai
                     substituteInPlace modules/paths.py \
                       --subst-var-by taming_transformers ${taming-transformers} \
                       --subst-var-by k_diffusion ${k_diffusion} \

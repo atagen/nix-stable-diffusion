@@ -4,15 +4,15 @@
 
 { accelerate, buildPythonPackage, clip-anytorch, einops, fetchPypi, jsonmerge
 , kornia, lib, pillow, resize-right, scikit-image, scipy, torch, torchdiffeq
-, torchvision, tqdm, wandb, clean-fid }:
+, torchvision, torchsde, trampoline, tqdm, wandb, clean-fid }:
 
 buildPythonPackage rec {
   pname = "k-diffusion";
-  version = "0.0.9";
+  version = "0.0.12";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "02j7hkhdh57bkvc75xygj50a64dzdi44d1gsw4wjmvp9f7pllpfa";
+    sha256 = "sha256-jE5OiAytSo5kJrxYGUbKNUWkm5jBpUraqoqayNaLreA=";
   };
 
   propagatedBuildInputs = [
@@ -28,6 +28,7 @@ buildPythonPackage rec {
     torch
     torchdiffeq
     torchvision
+    torchsde
     tqdm
     wandb
     clean-fid

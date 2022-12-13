@@ -45,7 +45,7 @@
 
 buildPythonPackage rec {
   pname = "gradio";
-  version = "3.5";
+  version = "3.12.0";
   disabled = pythonOlder "3.7";
   format = "pyproject";
 
@@ -53,7 +53,7 @@ buildPythonPackage rec {
   # and its releases are also more frequent than github tags
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-8MmpH2N1twrPGHS+HBLDWRtpg2Gd1rQzulbOEDr3rNQ=";
+    sha256 = "sha256-FHPyRTm1c1OY3s92isWCyswlEX8aKXB/FLqM+/j0DaY=";
   };
 
   nativeBuildInputs = [
